@@ -1,0 +1,5 @@
+http://www.lebeausoftware.org/software/decompile.aspx
+https://archive.org/details/msagent-decompiler
+https://archive.org/details/clippitMS
+https://archive.org/details/Microsoft_Agent_Character_Editor
+https://archive.org/details/msagent-character-collection
