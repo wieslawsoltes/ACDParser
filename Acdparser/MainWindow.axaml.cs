@@ -152,6 +152,10 @@ public static class AcdParser
             else if (trimmed.StartsWith("DefineAnimation"))
             {
                 var animation = new DefineAnimation();
+                var index = "DefineAnimation".Length + 1;
+                var length = trimmed.Length - index;
+                var name = trimmed.Substring(index, length).Trim('"');
+                animation.Name = name;
                 defines.Push(animation);
             }
             else if (trimmed.StartsWith("EndAnimation"))
