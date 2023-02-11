@@ -2,18 +2,53 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:m="clr-namespace:Acdparser"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="Acdparser.MainWindow"
         WindowStartupLocation="CenterScreen"
         Width="600" Height="500"
-        Title="Acdparser">
-  <Grid>
+        Title="Acdparser"
+        x:CompileBindings="True" x:DataType="m:Acd">
+  <Grid RowDefinitions="Auto,*" 
+        ColumnDefinitions="250,*">
+    <TreeView Grid.Row="1"
+              Grid.Column="0">
+      <TreeView.DataTemplates>
+        <TreeDataTemplate x:DataType="m:DefineAnimation" ItemsSource="{Binding Frames}">
+          <TextBlock Text="{Binding Name}" />
+        </TreeDataTemplate>
+        <TreeDataTemplate x:DataType="m:DefineFrame" ItemsSource="{Binding Images}">
+          <TextBlock Text="Frame" />
+        </TreeDataTemplate>
+        <TreeDataTemplate x:DataType="m:DefineState" ItemsSource="{Binding Animations}">
+          <TextBlock Text="{Binding Name}" />
+        </TreeDataTemplate>
+        <DataTemplate x:DataType="m:DefineImage">
+          <TextBlock Text="{Binding Filename}" />
+        </DataTemplate>
+        <DataTemplate x:DataType="m:DefineCharacter">
+          <TextBlock Text="Character" />
+        </DataTemplate>
+        <DataTemplate x:DataType="m:DefineInfo">
+          <TextBlock Text="{Binding Name}" />
+        </DataTemplate>
+        <DataTemplate x:DataType="m:DefineState">
+          <TextBlock Text="{Binding Name}" />
+        </DataTemplate>
+      </TreeView.DataTemplates>
+      <TreeViewItem Header="Character">
+        <TreeViewItem Header="Animations" Items="{Binding Animations}" />
+        <TreeViewItem Header="States" Items="{Binding States}"/>
+      </TreeViewItem>
+    </TreeView>
     <Button Name="ParseButton" 
             Content="Parse" 
+            Click="ParseButton_OnClick" 
             HorizontalAlignment="Center"
             HorizontalContentAlignment="Center"
             VerticalAlignment="Center"
             VerticalContentAlignment="Center"
-            Click="ParseButton_OnClick" />
+            Grid.Row="1"
+            Grid.Column="1"/>
   </Grid>
 </Window>
