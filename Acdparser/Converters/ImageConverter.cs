@@ -18,9 +18,7 @@ public class ImageConverter : IValueConverter
 
     public static SKBitmap? ImageLoader(string basePath, string fileName)
     {
-        var imagePath = OperatingSystem.IsWindows() 
-            ? $"{basePath}\\{fileName}" 
-            : $"{basePath}/{fileName.Replace('\\', '/')}";
+        var imagePath = GetImagePath(basePath, fileName);
         if (File.Exists(imagePath))
         {
             using var stream = File.Open(imagePath, FileMode.Open);
@@ -31,6 +29,14 @@ public class ImageConverter : IValueConverter
         }
 
         return null;
+    }
+
+    private static string GetImagePath(string basePath, string fileName)
+    {
+        var imagePath = OperatingSystem.IsWindows()
+            ? $"{basePath}\\{fileName}"
+            : $"{basePath}/{fileName.Replace('\\', '/')}";
+        return imagePath;
     }
 
     public static SKBitmap? ToBitmap(string fileName)
