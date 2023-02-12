@@ -7,8 +7,7 @@
              x:Class="Acdparser.AnimationView"
              x:CompileBindings="True" x:DataType="m:DefineAnimation">
   <Panel HorizontalAlignment="Center"
-              VerticalAlignment="Center">
-    <TextBlock Text="{Binding Name}" />
+         VerticalAlignment="Center">
     <SKBitmapControl Name="BitmapControl"
                      Bitmap="{x:Null}"
                      Stretch="None"
