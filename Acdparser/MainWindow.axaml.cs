@@ -11,6 +11,16 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+
+        if (OperatingSystem.IsWindows())
+        {
+            PathTextBox.Text = @"c:\Users\Administrator\Downloads\ACS\clippitMS\CLIPPIT ACS Decompiled\CLIPPIT.acd";
+        }
+
+        if (OperatingSystem.IsMacOS())
+        {
+            PathTextBox.Text = "/Users/wieslawsoltes/Documents/GitHub/Acdparser/clippitMS/CLIPPIT ACS Decompiled/CLIPPIT.acd";
+        }
     }
 
     private void ParseAsdFile(string path)
@@ -31,16 +41,17 @@ public partial class MainWindow : Window
 
     private void ParseButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        //var path = @"c:\Users\Administrator\Downloads\ACS\clippitMS\CLIPPIT ACS Decompiled\CLIPPIT.acd";
-        var path = "/Users/wieslawsoltes/Documents/GitHub/Acdparser/clippitMS/CLIPPIT ACS Decompiled/CLIPPIT.acd";
-
-        var basePath = Path.GetDirectoryName(path);
-        if (basePath is { })
+        var path = PathTextBox.Text;
+        if (path is { })
         {
-            ImageConverter.BasePath = basePath;
+            var basePath = Path.GetDirectoryName(path);
+            if (basePath is { })
+            {
+                ImageConverter.BasePath = basePath;
+            }
+
+            ParseAsdFile(path);
         }
-        
-        ParseAsdFile(path);
     }
 
     private void TreeView_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
