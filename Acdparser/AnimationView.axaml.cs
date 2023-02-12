@@ -50,10 +50,14 @@ public partial class AnimationView : UserControl
             Console.WriteLine($"OnLoaded {animation.Name}");
             
             _frames = new List<BitmapFrame>();
-            foreach (var frame in animation.Frames)
+            for (var i = 0; i < animation.Frames.Count; i++)
             {
+                var frame = animation.Frames[i];
                 if (frame.Images.Count >= 1)
                 {
+                    var branching = frame.Branching;
+                    // TODO: Handle branching.
+
                     var image = frame.Images[0];
                     if (image.Filename is { })
                     {
