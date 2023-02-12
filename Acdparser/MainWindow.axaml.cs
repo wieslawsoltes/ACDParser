@@ -33,6 +33,22 @@ public partial class MainWindow : Window
             var totalFrames = acd.Animations.SelectMany(x => x.Frames).Count();
             var totalImages = acd.Animations.SelectMany(x => x.Frames).SelectMany(x => x.Images).Count();
 
+            var basePath = Path.GetDirectoryName(path);
+            if (basePath is { })
+            {
+                ImageConverter.BasePath = basePath;
+            }
+
+            if (acd.Character is { })
+            {
+                var colorTableFileName = acd.Character.ColorTable;
+                if (colorTableFileName is { })
+                {
+                    // TODO:
+                    // var colorTable = ImageConverter.ToBitmap(colorTableFileName);
+                }
+            }
+
             DataContext = acd;
 
             Console.WriteLine($"animations: {totalAnimations}, frames: {totalFrames}, images: {totalImages}");
@@ -44,12 +60,6 @@ public partial class MainWindow : Window
         var path = PathTextBox.Text;
         if (path is { })
         {
-            var basePath = Path.GetDirectoryName(path);
-            if (basePath is { })
-            {
-                ImageConverter.BasePath = basePath;
-            }
-
             ParseAsdFile(path);
         }
     }
