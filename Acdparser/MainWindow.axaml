@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:m="clr-namespace:Acdparser"
         xmlns:converters="clr-namespace:Acdparser"
+        xmlns:views="clr-namespace:Acdparser"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         x:Class="Acdparser.MainWindow"
         WindowStartupLocation="CenterScreen"
@@ -56,12 +57,21 @@
                     Grid.Column="2">
       <ContentControl.DataTemplates>
         <DataTemplate x:DataType="m:DefineAnimation">
-          <TextBlock Text="{Binding Name}" />
+          <StackPanel HorizontalAlignment="Center"
+                      VerticalAlignment="Center">
+            <TextBlock Text="{Binding Name, FallbackValue={x:Null}, StringFormat={}Name: {0}}" />
+            <TextBlock Text="{Binding TransitionType, FallbackValue={x:Null}, StringFormat={}TransitionType: {0}}" />
+            <views:AnimationView />
+          </StackPanel>
         </DataTemplate>
         <DataTemplate x:DataType="m:DefineFrame">
           <StackPanel HorizontalAlignment="Center"
                       VerticalAlignment="Center">
-            <TextBlock Text="{Binding Images[0].Filename, FallbackValue={x:Null}}" />
+            <TextBlock Text="{Binding Images[0].Filename, FallbackValue={x:Null}, StringFormat={}Filename: {0}}" />
+            <TextBlock Text="{Binding Duration, StringFormat={}Duration: {0}}" />
+            <TextBlock Text="{Binding SoundEffect, StringFormat={}SoundEffect: {0}}" />
+            <!-- Images -->
+            <!-- Branching -->
             <SKBitmapControl Bitmap="{Binding Images[0].Filename, Converter={x:Static converters:ImageConverter.Instance}}"
                              Stretch="None"
                              StretchDirection="Both"/>
