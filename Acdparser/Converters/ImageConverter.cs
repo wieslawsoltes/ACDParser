@@ -25,6 +25,8 @@ public class ImageConverter : IValueConverter
         {
             using var stream = File.Open(imagePath, FileMode.Open);
             var bitmap = SKBitmap.Decode(stream);
+            // TODO: DefineCharacter.Transparency
+            // TODO: DefineCharacter.ColorTable
             return bitmap;
         }
 
