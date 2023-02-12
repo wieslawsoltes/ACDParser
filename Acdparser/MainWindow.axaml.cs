@@ -13,7 +13,7 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
-    private void ParseButton_OnClick(object? sender, RoutedEventArgs e)
+    private void ParseAsdFile()
     {
         //var path = @"c:\Users\Administrator\Downloads\ACS\clippitMS\CLIPPIT ACS Decompiled\CLIPPIT.acd";
         var path = "/Users/wieslawsoltes/Documents/GitHub/Acdparser/clippitMS/CLIPPIT ACS Decompiled/CLIPPIT.acd";
@@ -26,8 +26,34 @@ public partial class MainWindow : Window
             var totalImages = acd.Animations.SelectMany(x => x.Frames).SelectMany(x => x.Images).Count();
 
             DataContext = acd;
-            
+
             Console.WriteLine($"animations: {totalAnimations}, frames: {totalFrames}, images: {totalImages}");
+        }
+    }
+
+    private void ParseButton_OnClick(object? sender, RoutedEventArgs e)
+    {
+        ParseAsdFile();
+    }
+
+    private void TreeView_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (e.AddedItems.Count == 1)
+        {
+            var item = e.AddedItems[0];
+            Console.WriteLine($"{item}");
+            if (item is TreeViewItem treeViewItem)
+            {
+                DefineContentControl.Content = treeViewItem.DataContext;
+            }
+            else if (item is Define define)
+            {
+                DefineContentControl.Content = define;
+            }
+        }
+        else
+        {
+            DefineContentControl.Content = null;
         }
     }
 }
