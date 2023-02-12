@@ -8,6 +8,13 @@ using SkiaSharp;
 
 namespace Acdparser;
 
+public class RGB
+{
+    public byte R { get; set; }
+    public byte G { get; set; }
+    public byte B { get; set; }
+}
+
 public class ImageConverter : IValueConverter
 {
     public static ImageConverter Instance = new();
@@ -15,13 +22,6 @@ public class ImageConverter : IValueConverter
     public static string BasePath = "";
 
     private static Dictionary<string, SKBitmap?> ImageCache = new();
-
-    private class RGB
-    {
-        public byte R { get; set; }
-        public byte G { get; set; }
-        public byte B { get; set; }
-    }
 
     public static void ReadBmp(string basePath, string fileName)
     {
@@ -94,27 +94,28 @@ public class ImageConverter : IValueConverter
         }
     }
     
-    public static SKBitmap? ImageLoader(string basePath, string fileName)
-    {
-        var imagePath = GetImagePath(basePath, fileName);
-        if (File.Exists(imagePath))
-        {
-            using var stream = File.Open(imagePath, FileMode.Open);
-            var bitmap = SKBitmap.Decode(stream);
-            // TODO: DefineCharacter.Transparency
-            // TODO: DefineCharacter.ColorTable
-            return bitmap;
-        }
-
-        return null;
-    }
-
     private static string GetImagePath(string basePath, string fileName)
     {
         var imagePath = OperatingSystem.IsWindows()
             ? $"{basePath}\\{fileName}"
             : $"{basePath}/{fileName.Replace('\\', '/')}";
         return imagePath;
+    }
+
+    public static SKBitmap? ImageLoader(string basePath, string fileName)
+    {
+        var imagePath = GetImagePath(basePath, fileName);
+        if (!File.Exists(imagePath))
+        {
+            return null;
+        }
+
+        using var stream = File.Open(imagePath, FileMode.Open);
+        var bitmap = SKBitmap.Decode(stream);
+        // TODO: DefineCharacter.Transparency
+        // TODO: DefineCharacter.ColorTable
+        return bitmap;
+
     }
 
     public static SKBitmap? ToBitmap(string fileName)
