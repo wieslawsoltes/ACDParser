@@ -42,10 +42,11 @@ public partial class MainWindow : Window
             if (acd.Character is { })
             {
                 var colorTableFileName = acd.Character.ColorTable;
-                if (colorTableFileName is { })
+                if (colorTableFileName is { } && basePath is { })
                 {
                     // TODO:
                     // var colorTable = ImageConverter.ToBitmap(colorTableFileName);
+                    ImageConverter.ReadBmp(basePath, colorTableFileName);
                 }
             }
 
