@@ -105,13 +105,21 @@ public partial class AnimationView : UserControl
                 {
                     return;
                 }
+
                 BitmapControl.Bitmap = bitmapFrame.Bitmap;
+
+                // TODO: Handle branching and exit branch.
+                // TODO: DefineFrame.Branching.
+                // TODO: DefineFrame.ExitBranch.
+                // TODO: DefineFrame.SoundEffect.
                 _lastFrameIndex++;
                 if (_lastFrameIndex >= _frames.Count)
                 {
                     _lastFrameIndex = 0;
                 }
+
                 _lastFrame = _frames[_lastFrameIndex];
+
                 RenderFrame(_lastFrame);
             },
             bitmapFrame.Duration,
