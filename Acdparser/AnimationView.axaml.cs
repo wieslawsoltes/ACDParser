@@ -56,7 +56,8 @@ public partial class AnimationView : UserControl
                 if (frame.Images.Count >= 1)
                 {
                     var branching = frame.Branching;
-                    // TODO: Handle branching.
+                    var exitBranch = frame.ExitBranch;
+                    // TODO: Handle branching and exit branch.
 
                     var image = frame.Images[0];
                     if (image.Filename is { })
