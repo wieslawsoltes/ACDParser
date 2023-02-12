@@ -11,7 +11,9 @@
         x:CompileBindings="True" x:DataType="m:Acd">
   <Grid RowDefinitions="Auto,*" 
         ColumnDefinitions="250,8,*">
-    <TreeView Grid.Row="1"
+    <TreeView Name="AsdTreeView"
+              SelectionChanged="TreeView_OnSelectionChanged" 
+              Grid.Row="1"
               Grid.Column="0">
       <TreeView.DataTemplates>
         <TreeDataTemplate x:DataType="m:DefineAnimation" ItemsSource="{Binding Frames}">
@@ -41,11 +43,39 @@
         <TreeViewItem Header="States" Items="{Binding States}"/>
       </TreeViewItem>
     </TreeView>
-    <GridSplitter Grid.Row="1" Grid.Column="1" />
+    <GridSplitter Grid.Row="1" 
+                  Grid.Column="1" />
+    <ContentControl Name="DefineContentControl"
+                    Grid.Row="1" 
+                    Grid.Column="2">
+      <ContentControl.DataTemplates>
+        <DataTemplate x:DataType="m:DefineAnimation">
+          <TextBlock Text="{Binding Name}" />
+        </DataTemplate>
+        <DataTemplate x:DataType="m:DefineFrame">
+          <TextBlock Text="Frame" />
+        </DataTemplate>
+        <DataTemplate x:DataType="m:DefineState">
+          <TextBlock Text="{Binding Name}" />
+        </DataTemplate>
+        <DataTemplate x:DataType="m:DefineImage">
+          <TextBlock Text="{Binding Filename}" />
+        </DataTemplate>
+        <DataTemplate x:DataType="m:DefineCharacter">
+          <TextBlock Text="Character" />
+        </DataTemplate>
+        <DataTemplate x:DataType="m:DefineInfo">
+          <TextBlock Text="{Binding Name}" />
+        </DataTemplate>
+        <DataTemplate x:DataType="m:DefineState">
+          <TextBlock Text="{Binding Name}" />
+        </DataTemplate>
+      </ContentControl.DataTemplates>
+    </ContentControl>
     <Button Name="ParseButton" 
             Content="Parse" 
             Click="ParseButton_OnClick" 
-            HorizontalAlignment="Center"
+            HorizontalAlignment="Right"
             HorizontalContentAlignment="Center"
             VerticalAlignment="Center"
             VerticalContentAlignment="Center"
