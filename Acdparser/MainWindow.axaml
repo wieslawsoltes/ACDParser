@@ -3,14 +3,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:m="clr-namespace:Acdparser"
+        xmlns:converters="clr-namespace:Acdparser"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         x:Class="Acdparser.MainWindow"
         WindowStartupLocation="CenterScreen"
-        Width="800" Height="600"
+        Width="1000" Height="750"
         Title="Acdparser"
         x:CompileBindings="True" x:DataType="m:Acd">
   <Grid RowDefinitions="Auto,*" 
-        ColumnDefinitions="250,8,*">
+        ColumnDefinitions="300,8,*">
     <TreeView Name="AsdTreeView"
               SelectionChanged="TreeView_OnSelectionChanged" 
               Grid.Row="1"
@@ -38,9 +39,14 @@
           <TextBlock Text="{Binding Name}" />
         </DataTemplate>
       </TreeView.DataTemplates>
-      <TreeViewItem Header="Character">
-        <TreeViewItem Header="Animations" Items="{Binding Animations}" />
-        <TreeViewItem Header="States" Items="{Binding States}"/>
+      <TreeViewItem Header="Character" 
+                    IsExpanded="True">
+        <TreeViewItem Header="Animations" 
+                      Items="{Binding Animations}" 
+                      IsExpanded="True" />
+        <TreeViewItem Header="States" 
+                      Items="{Binding States}" 
+                      IsExpanded="True"/>
       </TreeViewItem>
     </TreeView>
     <GridSplitter Grid.Row="1" 
@@ -53,13 +59,25 @@
           <TextBlock Text="{Binding Name}" />
         </DataTemplate>
         <DataTemplate x:DataType="m:DefineFrame">
-          <TextBlock Text="Frame" />
+          <StackPanel HorizontalAlignment="Center"
+                      VerticalAlignment="Center">
+            <TextBlock Text="{Binding Images[0].Filename, FallbackValue={x:Null}}" />
+            <SKBitmapControl Bitmap="{Binding Images[0].Filename, Converter={x:Static converters:ImageConverter.Instance}}"
+                             Stretch="None"
+                             StretchDirection="Both"/>
+          </StackPanel>
         </DataTemplate>
         <DataTemplate x:DataType="m:DefineState">
           <TextBlock Text="{Binding Name}" />
         </DataTemplate>
         <DataTemplate x:DataType="m:DefineImage">
-          <TextBlock Text="{Binding Filename}" />
+          <StackPanel HorizontalAlignment="Center"
+                      VerticalAlignment="Center">
+            <TextBlock Text="{Binding Filename}" />
+            <SKBitmapControl Bitmap="{Binding Filename, Converter={x:Static converters:ImageConverter.Instance}}"
+                             Stretch="None"
+                             StretchDirection="Both"/>
+          </StackPanel>
         </DataTemplate>
         <DataTemplate x:DataType="m:DefineCharacter">
           <TextBlock Text="Character" />
