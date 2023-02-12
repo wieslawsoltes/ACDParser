@@ -69,6 +69,8 @@
                       VerticalAlignment="Center">
             <TextBlock Text="{Binding Images[0].Filename, FallbackValue={x:Null}, StringFormat={}Filename: {0}}" />
             <TextBlock Text="{Binding Duration, StringFormat={}Duration: {0}}" />
+            <TextBlock Text="{Binding ExitBranch, StringFormat={}ExitBranch: {0}}" />
+            <TextBlock Text="{Binding Branching.Branches.Count, FallbackValue=-, StringFormat={}Branches: {0}}" />
             <TextBlock Text="{Binding SoundEffect, StringFormat={}SoundEffect: {0}}" />
             <!-- Images -->
             <!-- Branching -->
@@ -100,14 +102,26 @@
         </DataTemplate>
       </ContentControl.DataTemplates>
     </ContentControl>
-    <Button Name="ParseButton" 
-            Content="Parse" 
-            Click="ParseButton_OnClick" 
-            HorizontalAlignment="Right"
-            HorizontalContentAlignment="Center"
-            VerticalAlignment="Center"
-            VerticalContentAlignment="Center"
-            Grid.Row="0"
-            Grid.Column="2"/>
+    <Grid ColumnDefinitions="*,Auto"
+          Grid.Row="0"
+          Grid.Column="0"
+          Grid.ColumnSpan="3">
+      <TextBox Text=""
+               Name="PathTextBox" 
+               Margin="6"
+               Grid.Row="0"
+               Grid.Column="0"/>
+      <Button Name="ParseButton" 
+              Content="Parse" 
+              Click="ParseButton_OnClick" 
+              HorizontalAlignment="Right"
+              HorizontalContentAlignment="Center"
+              VerticalAlignment="Center"
+              VerticalContentAlignment="Center"
+              Margin="6"
+              Grid.Row="0"
+              Grid.Column="1"/> 
+    </Grid>
+
   </Grid>
 </Window>
