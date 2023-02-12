@@ -7,7 +7,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Interactivity;
-using Avalonia.Media.Imaging;
 using SkiaSharp;
 
 namespace Acdparser;
@@ -88,7 +87,6 @@ public partial class MainWindow : Window
 
     private void ParseButton_OnClick(object? sender, RoutedEventArgs e)
     {
-        
         //var path = @"c:\Users\Administrator\Downloads\ACS\clippitMS\CLIPPIT ACS Decompiled\CLIPPIT.acd";
         var path = "/Users/wieslawsoltes/Documents/GitHub/Acdparser/clippitMS/CLIPPIT ACS Decompiled/CLIPPIT.acd";
 
@@ -106,7 +104,7 @@ public partial class MainWindow : Window
         if (e.AddedItems.Count == 1)
         {
             var item = e.AddedItems[0];
-            Console.WriteLine($"{item}");
+            //Console.WriteLine($"{item}");
             if (item is TreeViewItem treeViewItem)
             {
                 DefineContentControl.Content = treeViewItem.DataContext;
