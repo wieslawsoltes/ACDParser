@@ -1,35 +1,36 @@
 using System;
 using System.Collections.Generic;
+using Acdparser.Services;
 using Avalonia.Controls;
 using Avalonia.Threading;
 using SkiaSharp;
 
-namespace Acdparser;
+namespace Acdparser.Controls;
 
-internal class BitmapFrame
+public partial class AnimationPlayer : UserControl
 {
-    public BitmapFrame(SKBitmap bitmap, TimeSpan duration)
+    internal class BitmapFrame
     {
-        Bitmap = bitmap;
-        Duration = duration;
-    }
+        public BitmapFrame(SKBitmap bitmap, TimeSpan duration)
+        {
+            Bitmap = bitmap;
+            Duration = duration;
+        }
 
-    public SKBitmap Bitmap { get; set; }
+        public SKBitmap Bitmap { get; set; }
 
-    public TimeSpan Duration { get; set; }
-}
-
-public partial class AnimationView : UserControl
-{
-    public AnimationView()
-    {
-        InitializeComponent();
+        public TimeSpan Duration { get; set; }
     }
 
     private List<BitmapFrame>? _frames;
     private int _lastFrameIndex = -1;
     private BitmapFrame? _lastFrame;
     private IDisposable? _dispose;
+
+    public AnimationPlayer()
+    {
+        InitializeComponent();
+    }
 
     protected override void OnDataContextChanged(EventArgs e)
     {
@@ -47,7 +48,7 @@ public partial class AnimationView : UserControl
     {
         if (DataContext is DefineAnimation animation)
         {
-            Console.WriteLine($"OnLoaded {animation.Name}");
+            //Console.WriteLine($"OnLoaded {animation.Name}");
             
             _frames = new List<BitmapFrame>();
             for (var i = 0; i < animation.Frames.Count; i++)
@@ -62,7 +63,7 @@ public partial class AnimationView : UserControl
                     var image = frame.Images[0];
                     if (image.Filename is { })
                     {
-                        var bitmap = ImageConverter.ToBitmap(image.Filename);
+                        var bitmap = ImageLoader.ToBitmap(image.Filename);
                         if (bitmap is { })
                         {
                             var duration = TimeSpan.FromMilliseconds(frame.Duration * 10);
@@ -84,10 +85,10 @@ public partial class AnimationView : UserControl
 
     private void Unload()
     {
-        if (DataContext is DefineAnimation animation)
-        {
-            Console.WriteLine($"OnUnloaded {animation.Name}");
-        }
+        //if (DataContext is DefineAnimation animation)
+        //{
+        //    Console.WriteLine($"OnUnloaded {animation.Name}");
+        //}
 
         _frames = null;
         _lastFrame = null;

@@ -1,6 +1,5 @@
 using System;
-using System.IO;
-using System.Linq;
+using Acdparser.Services;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
@@ -23,45 +22,16 @@ public partial class MainWindow : Window
         }
     }
 
-    private void ParseAsdFile(string path)
-    {
-        using var stream = File.OpenRead(path);
-        var acd = AcdParser.ParseAcd(stream);
-        if (acd is { })
-        {
-            var totalAnimations = acd.Animations.Count;
-            var totalFrames = acd.Animations.SelectMany(x => x.Frames).Count();
-            var totalImages = acd.Animations.SelectMany(x => x.Frames).SelectMany(x => x.Images).Count();
-
-            var basePath = Path.GetDirectoryName(path);
-            if (basePath is { })
-            {
-                ImageConverter.BasePath = basePath;
-            }
-
-            if (acd.Character is { })
-            {
-                var colorTableFileName = acd.Character.ColorTable;
-                if (colorTableFileName is { } && basePath is { })
-                {
-                    // TODO:
-                    // var colorTable = ImageConverter.ToBitmap(colorTableFileName);
-                    ImageConverter.ReadBmp(basePath, colorTableFileName);
-                }
-            }
-
-            DataContext = acd;
-
-            Console.WriteLine($"animations: {totalAnimations}, frames: {totalFrames}, images: {totalImages}");
-        }
-    }
-
     private void ParseButton_OnClick(object? sender, RoutedEventArgs e)
     {
         var path = PathTextBox.Text;
         if (path is { })
         {
-            ParseAsdFile(path);
+            var acd = AcdLoader.Load(path);
+            if (acd is { })
+            {
+                DataContext = acd;
+            }
         }
     }
 

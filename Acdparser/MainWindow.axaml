@@ -5,6 +5,7 @@
         xmlns:m="clr-namespace:Acdparser"
         xmlns:converters="clr-namespace:Acdparser"
         xmlns:views="clr-namespace:Acdparser"
+        xmlns:controls="clr-namespace:Acdparser.Controls"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         x:Class="Acdparser.MainWindow"
         WindowStartupLocation="CenterScreen"
@@ -61,7 +62,7 @@
                       VerticalAlignment="Center">
             <TextBlock Text="{Binding Name, FallbackValue={x:Null}, StringFormat={}Name: {0}}" />
             <TextBlock Text="{Binding TransitionType, FallbackValue={x:Null}, StringFormat={}TransitionType: {0}}" />
-            <views:AnimationView />
+            <controls:AnimationPlayer />
           </StackPanel>
         </DataTemplate>
         <DataTemplate x:DataType="m:DefineFrame">
