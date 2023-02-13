@@ -4,7 +4,7 @@ using Acdparser.Services;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
-namespace Acdparser;
+namespace Acdparser.Views;
 
 public partial class MainWindow : Window
 {
