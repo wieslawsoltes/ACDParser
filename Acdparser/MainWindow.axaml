@@ -62,7 +62,7 @@
                       VerticalAlignment="Center">
             <TextBlock Text="{Binding Name, FallbackValue={x:Null}, StringFormat={}Name: {0}}" />
             <TextBlock Text="{Binding TransitionType, FallbackValue={x:Null}, StringFormat={}TransitionType: {0}}" />
-            <controls:AnimationPlayer />
+            <controls:Player Animation="{Binding}" />
           </StackPanel>
         </DataTemplate>
         <DataTemplate x:DataType="m:DefineFrame">

@@ -7,8 +7,6 @@ namespace Acdparser.Services;
 
 public class ImageLoader
 {
-    public static string BasePath = "";
-
     private static Dictionary<string, SKBitmap?> ImageCache = new();
 
     public class RGB
@@ -113,20 +111,18 @@ public class ImageLoader
 
     }
 
-    public static SKBitmap? ToBitmap(string fileName)
+    public static SKBitmap? ToBitmap(string basePath, string fileName)
     {
         if (ImageCache.TryGetValue(fileName, out var bitmap))
         {
             return bitmap;
         }
-        else
+
+        bitmap = ImageLoader.Load(basePath, fileName);
+        if (bitmap is { })
         {
-            bitmap = ImageLoader.Load(BasePath, fileName);
-            if (bitmap is { })
-            {
-                ImageCache[fileName] = bitmap;
-                return bitmap;
-            }
+            ImageCache[fileName] = bitmap;
+            return bitmap;
         }
 
         return null;

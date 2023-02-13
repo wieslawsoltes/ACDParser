@@ -1,0 +1,22 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:Acdparser.Controls">
+  <Design.PreviewWith>
+    <controls:Player Width="200" Height="200" Animation="" />
+  </Design.PreviewWith>
+  <Style Selector="controls|Player">
+    <Setter Property="HorizontalAlignment" Value="Center" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+               VerticalAlignment="{TemplateBinding VerticalAlignment}">
+          <SKBitmapControl Name="PART_BitmapControl"
+                           Bitmap="{x:Null}"
+                           Stretch="None"
+                           StretchDirection="Both"/>
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+</Styles>

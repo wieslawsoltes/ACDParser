@@ -14,7 +14,7 @@ public class ImageConverter : IValueConverter
     {
         if (value is string fileName)
         {
-            var bitmap = ImageLoader.ToBitmap(fileName);
+            var bitmap = ImageLoader.ToBitmap(AcdLoader.BasePath, fileName);
             if (bitmap is { })
             {
                 return bitmap;
