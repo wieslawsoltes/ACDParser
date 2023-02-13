@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Acdparser.Model;
 
-namespace Acdparser;
+namespace Acdparser.Services;
 
 public static class AcdParser
 {

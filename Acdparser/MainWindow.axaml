@@ -2,16 +2,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:m="clr-namespace:Acdparser"
         xmlns:converters="clr-namespace:Acdparser"
-        xmlns:views="clr-namespace:Acdparser"
         xmlns:controls="clr-namespace:Acdparser.Controls"
+        xmlns:model="clr-namespace:Acdparser.Model"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
         x:Class="Acdparser.MainWindow"
         WindowStartupLocation="CenterScreen"
         Width="1000" Height="750"
         Title="Acdparser"
-        x:CompileBindings="True" x:DataType="m:Acd">
+        x:CompileBindings="True" x:DataType="model:Acd">
   <Grid RowDefinitions="Auto,*" 
         ColumnDefinitions="300,8,*">
     <TreeView Name="AsdTreeView"
@@ -19,25 +18,25 @@
               Grid.Row="1"
               Grid.Column="0">
       <TreeView.DataTemplates>
-        <TreeDataTemplate x:DataType="m:DefineAnimation" ItemsSource="{Binding Frames}">
+        <TreeDataTemplate x:DataType="model:DefineAnimation" ItemsSource="{Binding Frames}">
           <TextBlock Text="{Binding Name}" />
         </TreeDataTemplate>
-        <TreeDataTemplate x:DataType="m:DefineFrame" ItemsSource="{Binding Images}">
+        <TreeDataTemplate x:DataType="model:DefineFrame" ItemsSource="{Binding Images}">
           <TextBlock Text="Frame" />
         </TreeDataTemplate>
-        <TreeDataTemplate x:DataType="m:DefineState" ItemsSource="{Binding Animations}">
+        <TreeDataTemplate x:DataType="model:DefineState" ItemsSource="{Binding Animations}">
           <TextBlock Text="{Binding Name}" />
         </TreeDataTemplate>
-        <DataTemplate x:DataType="m:DefineImage">
+        <DataTemplate x:DataType="model:DefineImage">
           <TextBlock Text="{Binding Filename}" />
         </DataTemplate>
-        <DataTemplate x:DataType="m:DefineCharacter">
+        <DataTemplate x:DataType="model:DefineCharacter">
           <TextBlock Text="Character" />
         </DataTemplate>
-        <DataTemplate x:DataType="m:DefineInfo">
+        <DataTemplate x:DataType="model:DefineInfo">
           <TextBlock Text="{Binding Name}" />
         </DataTemplate>
-        <DataTemplate x:DataType="m:DefineState">
+        <DataTemplate x:DataType="model:DefineState">
           <TextBlock Text="{Binding Name}" />
         </DataTemplate>
       </TreeView.DataTemplates>
@@ -57,7 +56,7 @@
                     Grid.Row="1" 
                     Grid.Column="2">
       <ContentControl.DataTemplates>
-        <DataTemplate x:DataType="m:DefineAnimation">
+        <DataTemplate x:DataType="model:DefineAnimation">
           <StackPanel HorizontalAlignment="Center"
                       VerticalAlignment="Center">
             <TextBlock Text="{Binding Name, FallbackValue={x:Null}, StringFormat={}Name: {0}}" />
@@ -65,7 +64,7 @@
             <controls:Player Animation="{Binding}" />
           </StackPanel>
         </DataTemplate>
-        <DataTemplate x:DataType="m:DefineFrame">
+        <DataTemplate x:DataType="model:DefineFrame">
           <StackPanel HorizontalAlignment="Center"
                       VerticalAlignment="Center">
             <TextBlock Text="{Binding Images[0].Filename, FallbackValue={x:Null}, StringFormat={}Filename: {0}}" />
@@ -80,10 +79,10 @@
                              StretchDirection="Both"/>
           </StackPanel>
         </DataTemplate>
-        <DataTemplate x:DataType="m:DefineState">
+        <DataTemplate x:DataType="model:DefineState">
           <TextBlock Text="{Binding Name}" />
         </DataTemplate>
-        <DataTemplate x:DataType="m:DefineImage">
+        <DataTemplate x:DataType="model:DefineImage">
           <StackPanel HorizontalAlignment="Center"
                       VerticalAlignment="Center">
             <TextBlock Text="{Binding Filename}" />
@@ -92,13 +91,13 @@
                              StretchDirection="Both"/>
           </StackPanel>
         </DataTemplate>
-        <DataTemplate x:DataType="m:DefineCharacter">
+        <DataTemplate x:DataType="model:DefineCharacter">
           <TextBlock Text="Character" />
         </DataTemplate>
-        <DataTemplate x:DataType="m:DefineInfo">
+        <DataTemplate x:DataType="model:DefineInfo">
           <TextBlock Text="{Binding Name}" />
         </DataTemplate>
-        <DataTemplate x:DataType="m:DefineState">
+        <DataTemplate x:DataType="model:DefineState">
           <TextBlock Text="{Binding Name}" />
         </DataTemplate>
       </ContentControl.DataTemplates>
@@ -123,6 +122,5 @@
               Grid.Row="0"
               Grid.Column="1"/> 
     </Grid>
-
   </Grid>
 </Window>

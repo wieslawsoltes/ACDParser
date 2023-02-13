@@ -1,4 +1,4 @@
-namespace Acdparser;
+namespace Acdparser.Model;
 
 public class DefineImage : Define
 {

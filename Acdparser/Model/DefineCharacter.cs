@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Acdparser;
+namespace Acdparser.Model;
 
 public class DefineCharacter : Define
 {

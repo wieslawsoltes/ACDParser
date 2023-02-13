@@ -1,4 +1,5 @@
 using System;
+using Acdparser.Model;
 using Acdparser.Services;
 using Avalonia.Controls;
 using Avalonia.Interactivity;

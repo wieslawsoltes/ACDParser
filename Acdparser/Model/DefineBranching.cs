@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Acdparser;
+namespace Acdparser.Model;
 
 public class DefineBranching : Define
 {
