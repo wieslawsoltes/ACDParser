@@ -4,7 +4,7 @@ using Acdparser.Services;
 using Avalonia;
 using Avalonia.Data.Converters;
 
-namespace Acdparser;
+namespace Acdparser.Converters;
 
 public class ImageConverter : IValueConverter
 {
