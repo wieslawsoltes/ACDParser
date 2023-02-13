@@ -9,18 +9,19 @@ public static class AcdParser
 {
     public static Acd? ParseAcd(Stream stream)
     {
+        var lineSeparators = new [] { '\r', '\n' };
+        var lineTrimChars = new [] {' ', '\t'};
+
         using var reader = new StreamReader(stream);
         var text = reader.ReadToEnd();
-        var lines = text.Split(
-            new char[] { '\r', '\n' }, 
-            StringSplitOptions.RemoveEmptyEntries);
+        var lines = text.Split(lineSeparators, StringSplitOptions.RemoveEmptyEntries);
+
         var acd = new Acd();
         var defines = new Stack<Define>();
 
         foreach (var line in lines)
         {
-            var trimmed = line.Trim(new char[] { ' ', '\t' });
-
+            var trimmed = line.Trim(lineTrimChars);
             if (trimmed.StartsWith("//"))
             {
                 continue;
@@ -49,7 +50,10 @@ public static class AcdParser
             {
                 var info = defines.Pop() as DefineInfo;
                 var character = defines.Peek() as DefineCharacter;
-                character.Infos.Add(info);
+                if (info is { } && character is { })
+                {
+                    character.Infos.Add(info);
+                }
             }
             else if (trimmed.StartsWith("DefineBalloon"))
             {
@@ -73,7 +77,10 @@ public static class AcdParser
             else if (trimmed.StartsWith("EndAnimation"))
             {
                 var animation = defines.Pop() as DefineAnimation;
-                acd.Animations.Add(animation);
+                if (animation is { })
+                {
+                    acd.Animations.Add(animation);
+                }
             }
             else if (trimmed.StartsWith("DefineFrame"))
             {
@@ -84,7 +91,10 @@ public static class AcdParser
             {
                 var frame = defines.Pop() as DefineFrame;
                 var animation = defines.Peek() as DefineAnimation;
-                animation.Frames.Add(frame);
+                if (frame is { } && animation is { })
+                {
+                    animation.Frames.Add(frame);
+                }
             }
             else if (trimmed.StartsWith("DefineImage"))
             {
@@ -95,7 +105,10 @@ public static class AcdParser
             {
                 var image = defines.Pop() as DefineImage;
                 var frame = defines.Peek() as DefineFrame;
-                frame.Images.Add(image);
+                if (image is { } && frame is { })
+                {
+                    frame.Images.Add(image);
+                }
             }
             else if (trimmed.StartsWith("DefineBranching"))
             {
@@ -106,7 +119,10 @@ public static class AcdParser
             {
                 var branching = defines.Pop() as DefineBranching;
                 var frame = defines.Peek() as DefineFrame;
-                frame.Branching = branching;
+                if (branching is { } && frame is { })
+                {
+                    frame.Branching = branching;
+                }
             }
             else if (trimmed.StartsWith("DefineState"))
             {
@@ -120,7 +136,10 @@ public static class AcdParser
             else if (trimmed.StartsWith("EndState"))
             {
                 var state = defines.Pop() as DefineState;
-                acd.States.Add(state);
+                if (state is { })
+                {
+                    acd.States.Add(state);
+                }
             }
             else
             {
@@ -154,29 +173,45 @@ public static class AcdParser
                         switch (key)
                         {
                             case "GUID":
+                            {
                                 character.GUID = Guid.Parse(value);
                                 break;
+                            }
                             case "Width":
+                            {
                                 character.Width = int.Parse(value);
                                 break;
+                            }
                             case "Height":
+                            {
                                 character.Height = int.Parse(value);
                                 break;
+                            }
                             case "Transparency":
+                            {
                                 character.Transparency = int.Parse(value);
                                 break;
+                            }
                             case "DefaultFrameDuration":
+                            {
                                 character.DefaultFrameDuration = int.Parse(value);
                                 break;
+                            }
                             case "Style":
+                            {
                                 // TOOD:
                                 break;
+                            }
                             case "ColorTable":
+                            {
                                 character.ColorTable = value;
                                 break;
+                            }
                             default:
+                            {
                                 Console.WriteLine($"ERROR: Unknown key: {trimmed}");
                                 return null;
+                            }
                         }
                         break;
                     }
@@ -185,17 +220,25 @@ public static class AcdParser
                         switch (key)
                         {
                             case "Name":
+                            {
                                 info.Name = value;
                                 break;
+                            }
                             case "Description":
+                            {
                                 info.Description = value;
                                 break;
+                            }
                             case "ExtraData":
+                            {
                                 info.ExtraData = value;
                                 break;
+                            }
                             default:
+                            {
                                 Console.WriteLine($"ERROR: Unknown key: {trimmed}");
                                 return null;
+                            }
                         }
                         break;
                     }
@@ -204,29 +247,45 @@ public static class AcdParser
                         switch (key)
                         {
                             case "NumLines":
+                            {
                                 balloon.NumLines = int.Parse(value);
                                 break;
+                            }
                             case "CharsPerLine":
+                            {
                                 balloon.CharsPerLine = int.Parse(value);
                                 break;
+                            }
                             case "FontName":
+                            {
                                 balloon.FontName = value;
                                 break;
+                            }
                             case "FontHeight":
+                            {
                                 balloon.FontHeight = int.Parse(value);
                                 break;
+                            }
                             case "ForeColor":
+                            {
                                 balloon.ForeColor = value;
                                 break;
+                            }
                             case "BackColor":
+                            {
                                 balloon.BackColor = value;
                                 break;
+                            }
                             case "BorderColor":
+                            {
                                 balloon.BorderColor = value;
                                 break;
+                            }
                             default:
+                            {
                                 Console.WriteLine($"ERROR: Unknown key: {trimmed}");
                                 return null;
+                            }
                         }
                         break;
                     }
@@ -235,11 +294,15 @@ public static class AcdParser
                         switch (key)
                         {
                             case "TransitionType":
+                            {
                                 animation.TransitionType = int.Parse(value);
                                 break;
+                            }
                             default:
+                            {
                                 Console.WriteLine($"ERROR: Unknown key: {trimmed}");
                                 return null;
+                            }
                         }
                         break;
                     }
@@ -248,17 +311,25 @@ public static class AcdParser
                         switch (key)
                         {
                             case "Duration":
+                            {
                                 frame.Duration = int.Parse(value);
                                 break;
+                            }
                             case "ExitBranch":
+                            {
                                 frame.ExitBranch = int.Parse(value);
                                 break;
+                            }
                             case "SoundEffect":
+                            {
                                 frame.SoundEffect = value;
                                 break;
+                            }
                             default:
+                            {
                                 Console.WriteLine($"ERROR: Unknown key: {trimmed}");
                                 return null;
+                            }
                         }
                         break;
                     }
@@ -267,11 +338,15 @@ public static class AcdParser
                         switch (key)
                         {
                             case "Filename":
+                            {
                                 image.Filename = value;
                                 break;
+                            }
                             default:
+                            {
                                 Console.WriteLine($"ERROR: Unknown key: {trimmed}");
                                 return null;
+                            }
                         }
                         break;
                     }
@@ -280,17 +355,27 @@ public static class AcdParser
                         switch (key)
                         {
                             case "BranchTo":
-                                branching.Branches.Add(new Branch()
+                            {
+                                if (branching.Branches is { })
                                 {
-                                    BranchTo = int.Parse(value)
-                                });
+                                    branching.Branches.Add(new Branch() {BranchTo = int.Parse(value)});
+                                }
                                 break;
+                            }
                             case "Probability":
-                                branching.Branches[^1].Probability = int.Parse(value);
+                            {
+                                if (branching.Branches is { })
+                                {
+                                    branching.Branches[^1].Probability = int.Parse(value);
+                                }
+
                                 break;
+                            }
                             default:
+                            {
                                 Console.WriteLine($"ERROR: Unknown key: {trimmed}");
                                 return null;
+                            }
                         }
                         break;
                     }
@@ -299,11 +384,15 @@ public static class AcdParser
                         switch (key)
                         {
                             case "Animation":
+                            {
                                 state.Animations.Add(value);
                                 break;
+                            }
                             default:
+                            {
                                 Console.WriteLine($"ERROR: Unknown key: {trimmed}");
                                 return null;
+                            }
                         }
                         break;
                     }
