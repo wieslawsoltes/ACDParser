@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acdparser", "Acdparser\Acdparser.csproj", "{E4D0DE0A-CFBE-4EBE-B0C8-0C20DD76E1C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACDParser", "ACDParser\ACDParser.csproj", "{E4D0DE0A-CFBE-4EBE-B0C8-0C20DD76E1C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
