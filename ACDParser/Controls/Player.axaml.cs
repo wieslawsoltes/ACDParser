@@ -95,6 +95,9 @@ public class Player : TemplatedControl
             }
         }
 
+        // TODO: Frames are in reverse order in project.
+        _frames.Reverse();
+
         if (_frames is { } && _frames.Count >= 0)
         {
             _lastFrameIndex = 0;
