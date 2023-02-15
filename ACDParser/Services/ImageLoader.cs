@@ -105,8 +105,21 @@ public class ImageLoader
 
         using var stream = File.Open(imagePath, FileMode.Open);
         var bitmap = SKBitmap.Decode(stream);
+
         // TODO: DefineCharacter.Transparency
         // TODO: DefineCharacter.ColorTable
+        var pixels = bitmap.Pixels;
+        var transparent = SKColor.Parse("#FF00FF");
+        for (var i = 0; i < pixels.Length; i++)
+        {
+            var pixel = pixels[i];
+            if (pixel == transparent)
+            {
+                pixels[i] = SKColors.Transparent;
+            }
+        }
+        bitmap.Pixels = pixels;
+
         return bitmap;
 
     }
