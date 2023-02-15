@@ -118,7 +118,7 @@ public class ImageLoader
             return bitmap;
         }
 
-        bitmap = ImageLoader.Load(basePath, fileName);
+        bitmap = Load(basePath, fileName);
         if (bitmap is { })
         {
             ImageCache[fileName] = bitmap;
