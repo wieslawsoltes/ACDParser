@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using SkiaSharp;
 
-namespace Acdparser.Services;
+namespace ACDParser.Services;
 
 public class ImageLoader
 {

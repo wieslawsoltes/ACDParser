@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace Acdparser.Views;
+namespace ACDParser.Views;
 
 public partial class MainWindow : Window
 {

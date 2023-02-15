@@ -2,13 +2,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:model="clr-namespace:Acdparser.Model"
-        xmlns:views="clr-namespace:Acdparser.Views"
+        xmlns:model="clr-namespace:ACDParser.Model"
+        xmlns:views="clr-namespace:ACDParser.Views"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
-        x:Class="Acdparser.Views.MainWindow"
+        x:Class="ACDParser.Views.MainWindow"
         WindowStartupLocation="CenterScreen"
         Width="1000" Height="750"
-        Title="Acdparser"
+        Title="ACDParser"
         x:CompileBindings="True" x:DataType="model:Acd">
   <views:MainView />
 </Window>

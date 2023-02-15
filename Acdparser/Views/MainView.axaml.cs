@@ -1,10 +1,10 @@
 using System;
-using Acdparser.Model;
-using Acdparser.Services;
+using ACDParser.Model;
+using ACDParser.Services;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
-namespace Acdparser.Views;
+namespace ACDParser.Views;
 
 public partial class MainView : UserControl
 {
@@ -19,7 +19,7 @@ public partial class MainView : UserControl
 
         if (OperatingSystem.IsMacOS())
         {
-            PathTextBox.Text = "/Users/wieslawsoltes/Documents/GitHub/Acdparser/clippitMS/CLIPPIT ACS Decompiled/CLIPPIT.acd";
+            PathTextBox.Text = "/Users/wieslawsoltes/Documents/GitHub/ACDParser/clippitMS/CLIPPIT ACS Decompiled/CLIPPIT.acd";
         }
     }
 

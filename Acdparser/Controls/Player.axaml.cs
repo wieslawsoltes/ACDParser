@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Acdparser.Model;
-using Acdparser.Services;
+using ACDParser.Model;
+using ACDParser.Services;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
@@ -9,7 +9,7 @@ using Avalonia.Controls.Skia;
 using Avalonia.Threading;
 using SkiaSharp;
 
-namespace Acdparser.Controls;
+namespace ACDParser.Controls;
 
 public class Player : TemplatedControl
 {
@@ -48,6 +48,7 @@ public class Player : TemplatedControl
     private int _lastFrameIndex = -1;
     private BitmapFrame? _lastFrame;
     private IDisposable? _dispose;
+    private TransitionType _transitionType;
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
@@ -68,6 +69,7 @@ public class Player : TemplatedControl
     private void Load(DefineAnimation animation)
     {
         _frames = new List<BitmapFrame>();
+        _transitionType = animation.TransitionType;
 
         for (var i = 0; i < animation.Frames.Count; i++)
         {
@@ -78,16 +80,12 @@ public class Player : TemplatedControl
                 continue;
             }
 
-            // TODO: Handle branching and exit branch.
-            var branching = frame.Branching;
-            var exitBranch = frame.ExitBranch;
-
             var image = frame.Images[0];
             if (image.Filename is null)
             {
                 continue;
             }
-            
+
             var bitmap = ImageLoader.ToBitmap(AcdLoader.BasePath, image.Filename);
             if (bitmap is { })
             {
@@ -129,11 +127,16 @@ public class Player : TemplatedControl
                     _bitmapControl.Bitmap = bitmapFrame.Bitmap;
                 }
 
-                // TODO: Handle branching and exit branch.
+                // TODO: Handle transition type, branching and exit branch.
                 // TODO: DefineFrame.Branching.
                 // TODO: DefineFrame.ExitBranch.
                 // TODO: DefineFrame.SoundEffect.
+                // TODO: DefineAnimation.TransitionType.
+                // var branching = frame.Branching;
+                // var exitBranch = frame.ExitBranch;
+
                 _lastFrameIndex++;
+
                 if (_lastFrameIndex >= _frames.Count)
                 {
                     _lastFrameIndex = 0;

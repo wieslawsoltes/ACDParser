@@ -1,9 +1,9 @@
-using Acdparser.Views;
+using ACDParser.Views;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 
-namespace Acdparser;
+namespace ACDParser;
 
 public partial class App : Application
 {

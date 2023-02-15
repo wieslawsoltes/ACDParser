@@ -1,10 +1,10 @@
 using System;
 using System.Globalization;
-using Acdparser.Services;
+using ACDParser.Services;
 using Avalonia;
 using Avalonia.Data.Converters;
 
-namespace Acdparser.Converters;
+namespace ACDParser.Converters;
 
 public class ImageConverter : IValueConverter
 {

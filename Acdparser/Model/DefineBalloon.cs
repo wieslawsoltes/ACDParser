@@ -1,4 +1,4 @@
-namespace Acdparser.Model;
+namespace ACDParser.Model;
 
 public class DefineBalloon : Define
 {

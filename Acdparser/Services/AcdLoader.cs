@@ -1,7 +1,7 @@
 using System.IO;
-using Acdparser.Model;
+using ACDParser.Model;
 
-namespace Acdparser.Services;
+namespace ACDParser.Services;
 
 public class AcdLoader
 {

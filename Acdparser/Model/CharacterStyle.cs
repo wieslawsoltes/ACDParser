@@ -1,6 +1,6 @@
 using System;
 
-namespace Acdparser.Model;
+namespace ACDParser.Model;
 
 [Flags]
 public enum CharacterStyle

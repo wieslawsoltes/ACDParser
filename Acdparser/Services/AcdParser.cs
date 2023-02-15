@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Acdparser.Model;
+using ACDParser.Model;
 
-namespace Acdparser.Services;
+namespace ACDParser.Services;
 
 public static class AcdParser
 {
@@ -295,7 +295,30 @@ public static class AcdParser
                         {
                             case "TransitionType":
                             {
-                                animation.TransitionType = int.Parse(value);
+                                var transitionTypeByte = byte.Parse(value);
+                                switch (transitionTypeByte)
+                                {
+                                    case 0x00:
+                                    {
+                                        animation.TransitionType = TransitionType.Return;
+                                        break;
+                                    }
+                                    case 0x01:
+                                    {
+                                        animation.TransitionType = TransitionType.Branching;
+                                        break;
+                                    }
+                                    case 0x02:
+                                    {
+                                        animation.TransitionType = TransitionType.None;
+                                        break;
+                                    }
+                                    default:
+                                    {
+                                        Console.WriteLine($"Unknown TransitionType: {transitionTypeByte}");
+                                        break;
+                                    }
+                                }
                                 break;
                             }
                             default:
