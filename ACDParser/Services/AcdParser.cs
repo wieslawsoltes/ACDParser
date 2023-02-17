@@ -301,6 +301,10 @@ public static class AcdParser
                 }
                 break;
             }
+            case AcdBranch branch:
+            {
+                break;
+            }
             case AcdAnimation animation:
             {
                 switch (key)
