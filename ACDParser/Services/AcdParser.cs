@@ -27,7 +27,7 @@ public static class AcdParser
                 continue;
             }
 
-            if (data.StartsWith("AcdCharacter"))
+            if (data.StartsWith("DefineCharacter"))
             {
                 var character = new AcdCharacter();
                 bases.Push(character);
@@ -37,10 +37,10 @@ public static class AcdParser
                 var character = bases.Pop() as AcdCharacter;
                 acd.Character = character;
             }
-            else if (data.StartsWith("AcdInfo"))
+            else if (data.StartsWith("DefineInfo"))
             {
                 var info = new AcdInfo();
-                var index = "AcdInfo".Length + 1;
+                var index = "DefineInfo".Length + 1;
                 var length = data.Length - index;
                 var id = data.Substring(index, length);
                 info.Id = id;
@@ -53,7 +53,7 @@ public static class AcdParser
                     character.Infos.Add(info);
                 }
             }
-            else if (data.StartsWith("AcdBalloon"))
+            else if (data.StartsWith("DefineBalloon"))
             {
                 var balloon = new AcdBalloon();
                 bases.Push(balloon);
@@ -63,10 +63,10 @@ public static class AcdParser
                 var balloon = bases.Pop() as AcdBalloon;
                 acd.Balloon = balloon;
             }
-            else if (data.StartsWith("AcdAnimation"))
+            else if (data.StartsWith("DefineAnimation"))
             {
                 var animation = new AcdAnimation();
-                var index = "AcdAnimation".Length + 1;
+                var index = "DefineAnimation".Length + 1;
                 var length = data.Length - index;
                 var name = data.Substring(index, length).Trim('"');
                 animation.Name = name;
@@ -79,7 +79,7 @@ public static class AcdParser
                     acd.Animations.Add(animation);
                 }
             }
-            else if (data.StartsWith("AcdFrame"))
+            else if (data.StartsWith("DefineFrame"))
             {
                 var frame = new AcdFrame();
                 bases.Push(frame);
@@ -91,7 +91,7 @@ public static class AcdParser
                     animation.Frames.Add(frame);
                 }
             }
-            else if (data.StartsWith("AcdImage"))
+            else if (data.StartsWith("DefineImage"))
             {
                 var image = new AcdImage();
                 bases.Push(image);
@@ -103,7 +103,7 @@ public static class AcdParser
                     frame.Images.Add(image);
                 }
             }
-            else if (data.StartsWith("AcdBranching"))
+            else if (data.StartsWith("DefineBranching"))
             {
                 var branching = new AcdBranching();
                 bases.Push(branching);   
@@ -115,10 +115,10 @@ public static class AcdParser
                     frame.Branching = branching;
                 }
             }
-            else if (data.StartsWith("AcdState"))
+            else if (data.StartsWith("DefineState"))
             {
                 var state = new AcdState();
-                var index = "AcdState".Length + 1;
+                var index = "DefineState".Length + 1;
                 var length = data.Length - index;
                 var name = data.Substring(index, length).Trim('"');
                 state.Name = name;
@@ -160,7 +160,6 @@ public static class AcdParser
     private  static bool ParseProperties(string data, Stack<AcdBase> bases)
     {
         var acdBase = bases.Peek();
-
         var (key, value) = ParseKeyValue(data);
         if (key is null || value is null)
         {
@@ -255,7 +254,7 @@ public static class AcdParser
             {
                 switch (key)
                 {
-                    case "AcdTransitionType":
+                    case "TransitionType":
                     {
                         var transitionTypeByte = byte.Parse(value);
                         switch (transitionTypeByte)
@@ -270,7 +269,7 @@ public static class AcdParser
                                 animation.AcdTransitionType = AcdTransitionType.None;
                                 break;
                             default:
-                                Console.WriteLine($"Unknown AcdTransitionType: {transitionTypeByte}");
+                                Console.WriteLine($"Unknown TransitionType: {transitionTypeByte}");
                                 break;
                         }
                         break;
