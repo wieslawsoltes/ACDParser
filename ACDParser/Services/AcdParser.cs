@@ -17,125 +17,125 @@ public static class AcdParser
         var lines = text.Split(lineSeparators, StringSplitOptions.RemoveEmptyEntries);
 
         var acd = new Acd();
-        var defines = new Stack<AcdBase>();
+        var bases = new Stack<AcdBase>();
 
         foreach (var line in lines)
         {
-            var trimmed = line.Trim(lineTrimChars);
-            if (trimmed.StartsWith("//"))
+            var data = line.Trim(lineTrimChars);
+            if (data.StartsWith("//"))
             {
                 continue;
             }
 
-            if (trimmed.StartsWith("AcdCharacter"))
+            if (data.StartsWith("AcdCharacter"))
             {
                 var character = new AcdCharacter();
-                defines.Push(character);
+                bases.Push(character);
             }
-            else if (trimmed.StartsWith("EndCharacter"))
+            else if (data.StartsWith("EndCharacter"))
             {
-                var character = defines.Pop() as AcdCharacter;
+                var character = bases.Pop() as AcdCharacter;
                 acd.Character = character;
             }
-            else if (trimmed.StartsWith("AcdInfo"))
+            else if (data.StartsWith("AcdInfo"))
             {
                 var info = new AcdInfo();
                 var index = "AcdInfo".Length + 1;
-                var length = trimmed.Length - index;
-                var id = trimmed.Substring(index, length);
+                var length = data.Length - index;
+                var id = data.Substring(index, length);
                 info.Id = id;
-                defines.Push(info);
+                bases.Push(info);
             }
-            else if (trimmed.StartsWith("EndInfo"))
+            else if (data.StartsWith("EndInfo"))
             {
-                var info = defines.Pop() as AcdInfo;
-                var character = defines.Peek() as AcdCharacter;
+                var info = bases.Pop() as AcdInfo;
+                var character = bases.Peek() as AcdCharacter;
                 if (info is { } && character is { })
                 {
                     character.Infos.Add(info);
                 }
             }
-            else if (trimmed.StartsWith("AcdBalloon"))
+            else if (data.StartsWith("AcdBalloon"))
             {
                 var balloon = new AcdBalloon();
-                defines.Push(balloon);
+                bases.Push(balloon);
             }
-            else if (trimmed.StartsWith("EndBalloon"))
+            else if (data.StartsWith("EndBalloon"))
             {
-                var balloon = defines.Pop() as AcdBalloon;
+                var balloon = bases.Pop() as AcdBalloon;
                 acd.Balloon = balloon;
             }
-            else if (trimmed.StartsWith("AcdAnimation"))
+            else if (data.StartsWith("AcdAnimation"))
             {
                 var animation = new AcdAnimation();
                 var index = "AcdAnimation".Length + 1;
-                var length = trimmed.Length - index;
-                var name = trimmed.Substring(index, length).Trim('"');
+                var length = data.Length - index;
+                var name = data.Substring(index, length).Trim('"');
                 animation.Name = name;
-                defines.Push(animation);
+                bases.Push(animation);
             }
-            else if (trimmed.StartsWith("EndAnimation"))
+            else if (data.StartsWith("EndAnimation"))
             {
-                var animation = defines.Pop() as AcdAnimation;
+                var animation = bases.Pop() as AcdAnimation;
                 if (animation is { })
                 {
                     acd.Animations.Add(animation);
                 }
             }
-            else if (trimmed.StartsWith("AcdFrame"))
+            else if (data.StartsWith("AcdFrame"))
             {
                 var frame = new AcdFrame();
-                defines.Push(frame);
+                bases.Push(frame);
             }
-            else if (trimmed.StartsWith("EndFrame"))
+            else if (data.StartsWith("EndFrame"))
             {
-                var frame = defines.Pop() as AcdFrame;
-                var animation = defines.Peek() as AcdAnimation;
+                var frame = bases.Pop() as AcdFrame;
+                var animation = bases.Peek() as AcdAnimation;
                 if (frame is { } && animation is { })
                 {
                     animation.Frames.Add(frame);
                 }
             }
-            else if (trimmed.StartsWith("AcdImage"))
+            else if (data.StartsWith("AcdImage"))
             {
                 var image = new AcdImage();
-                defines.Push(image);
+                bases.Push(image);
             }
-            else if (trimmed.StartsWith("EndImage"))
+            else if (data.StartsWith("EndImage"))
             {
-                var image = defines.Pop() as AcdImage;
-                var frame = defines.Peek() as AcdFrame;
+                var image = bases.Pop() as AcdImage;
+                var frame = bases.Peek() as AcdFrame;
                 if (image is { } && frame is { })
                 {
                     frame.Images.Add(image);
                 }
             }
-            else if (trimmed.StartsWith("AcdBranching"))
+            else if (data.StartsWith("AcdBranching"))
             {
                 var branching = new AcdBranching();
-                defines.Push(branching);   
+                bases.Push(branching);   
             }
-            else if (trimmed.StartsWith("EndBranching"))
+            else if (data.StartsWith("EndBranching"))
             {
-                var branching = defines.Pop() as AcdBranching;
-                var frame = defines.Peek() as AcdFrame;
+                var branching = bases.Pop() as AcdBranching;
+                var frame = bases.Peek() as AcdFrame;
                 if (branching is { } && frame is { })
                 {
                     frame.Branching = branching;
                 }
             }
-            else if (trimmed.StartsWith("AcdState"))
+            else if (data.StartsWith("AcdState"))
             {
                 var state = new AcdState();
                 var index = "AcdState".Length + 1;
-                var length = trimmed.Length - index;
-                var name = trimmed.Substring(index, length).Trim('"');
+                var length = data.Length - index;
+                var name = data.Substring(index, length).Trim('"');
                 state.Name = name;
-                defines.Push(state);  
+                bases.Push(state);  
             }
-            else if (trimmed.StartsWith("EndState"))
+            else if (data.StartsWith("EndState"))
             {
-                var state = defines.Pop() as AcdState;
+                var state = bases.Pop() as AcdState;
                 if (state is { })
                 {
                     acd.States.Add(state);
@@ -143,7 +143,7 @@ public static class AcdParser
             }
             else
             {
-                if (!ParseProperties(trimmed, defines))
+                if (!ParseProperties(data, bases))
                 {
                     return null;
                 }
@@ -167,14 +167,14 @@ public static class AcdParser
         return (key, value);
     }
 
-    private  static bool ParseProperties(string trimmed, Stack<AcdBase> defines)
+    private  static bool ParseProperties(string data, Stack<AcdBase> bases)
     {
-        var acdBase = defines.Peek();
+        var acdBase = bases.Peek();
 
-        var (key, value) = ParseKeyValue(trimmed);
+        var (key, value) = ParseKeyValue(data);
         if (key is null || value is null)
         {
-            Console.WriteLine($"ERROR: {trimmed}");
+            Console.WriteLine($"ERROR: {data}");
             return false;
         }
 
@@ -221,7 +221,7 @@ public static class AcdParser
                     }
                     default:
                     {
-                        Console.WriteLine($"ERROR: Unknown key: {trimmed}");
+                        Console.WriteLine($"ERROR: Unknown key: {data}");
                         return false;
                     }
                 }
@@ -248,7 +248,7 @@ public static class AcdParser
                     }
                     default:
                     {
-                        Console.WriteLine($"ERROR: Unknown key: {trimmed}");
+                        Console.WriteLine($"ERROR: Unknown key: {data}");
                         return false;
                     }
                 }
@@ -295,7 +295,7 @@ public static class AcdParser
                     }
                     default:
                     {
-                        Console.WriteLine($"ERROR: Unknown key: {trimmed}");
+                        Console.WriteLine($"ERROR: Unknown key: {data}");
                         return false;
                     }
                 }
@@ -335,7 +335,7 @@ public static class AcdParser
                     }
                     default:
                     {
-                        Console.WriteLine($"ERROR: Unknown key: {trimmed}");
+                        Console.WriteLine($"ERROR: Unknown key: {data}");
                         return false;
                     }
                 }
@@ -362,7 +362,7 @@ public static class AcdParser
                     }
                     default:
                     {
-                        Console.WriteLine($"ERROR: Unknown key: {trimmed}");
+                        Console.WriteLine($"ERROR: Unknown key: {data}");
                         return false;
                     }
                 }
@@ -379,7 +379,7 @@ public static class AcdParser
                     }
                     default:
                     {
-                        Console.WriteLine($"ERROR: Unknown key: {trimmed}");
+                        Console.WriteLine($"ERROR: Unknown key: {data}");
                         return false;
                     }
                 }
@@ -412,7 +412,7 @@ public static class AcdParser
                     }
                     default:
                     {
-                        Console.WriteLine($"ERROR: Unknown key: {trimmed}");
+                        Console.WriteLine($"ERROR: Unknown key: {data}");
                         return false;
                     }
                 }
@@ -429,7 +429,7 @@ public static class AcdParser
                     }
                     default:
                     {
-                        Console.WriteLine($"ERROR: Unknown key: {trimmed}");
+                        Console.WriteLine($"ERROR: Unknown key: {data}");
                         return false;
                     }
                 }
@@ -437,7 +437,7 @@ public static class AcdParser
             }
             default:
             {
-                Console.WriteLine($"ERROR: Unknown type: {trimmed}");
+                Console.WriteLine($"ERROR: Unknown type: {data}");
                 return false;
             }
         }
