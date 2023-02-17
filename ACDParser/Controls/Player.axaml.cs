@@ -13,10 +13,10 @@ namespace ACDParser.Controls;
 
 public class Player : TemplatedControl
 {
-    public static readonly StyledProperty<DefineAnimation?> AnimationProperty = 
-        AvaloniaProperty.Register<Player, DefineAnimation?>(nameof(Animation));
+    public static readonly StyledProperty<AcdAnimation?> AnimationProperty = 
+        AvaloniaProperty.Register<Player, AcdAnimation?>(nameof(Animation));
 
-    public DefineAnimation? Animation
+    public AcdAnimation? Animation
     {
         get => GetValue(AnimationProperty);
         set => SetValue(AnimationProperty, value);
@@ -48,7 +48,7 @@ public class Player : TemplatedControl
     private int _lastFrameIndex = -1;
     private BitmapFrame? _lastFrame;
     private IDisposable? _dispose;
-    private TransitionType _transitionType;
+    private AcdTransitionType _acdTransitionType;
 
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
@@ -58,7 +58,7 @@ public class Player : TemplatedControl
         {
             Unload();
 
-            var animation = change.GetNewValue<DefineAnimation?>();
+            var animation = change.GetNewValue<AcdAnimation?>();
             if (animation is { })
             {
                 Load(animation);
@@ -66,10 +66,10 @@ public class Player : TemplatedControl
         }
     }
 
-    private void Load(DefineAnimation animation)
+    private void Load(AcdAnimation animation)
     {
         _frames = new List<BitmapFrame>();
-        _transitionType = animation.TransitionType;
+        _acdTransitionType = animation.AcdTransitionType;
 
         for (var i = 0; i < animation.Frames.Count; i++)
         {
@@ -131,10 +131,10 @@ public class Player : TemplatedControl
                 }
 
                 // TODO: Handle transition type, branching and exit branch.
-                // TODO: DefineFrame.Branching.
-                // TODO: DefineFrame.ExitBranch.
-                // TODO: DefineFrame.SoundEffect.
-                // TODO: DefineAnimation.TransitionType.
+                // TODO: AcdFrame.Branching.
+                // TODO: AcdFrame.ExitBranch.
+                // TODO: AcdFrame.SoundEffect.
+                // TODO: AcdAnimation.AcdTransitionType.
                 // var branching = frame.Branching;
                 // var exitBranch = frame.ExitBranch;
 

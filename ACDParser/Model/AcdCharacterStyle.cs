@@ -3,7 +3,7 @@ using System;
 namespace ACDParser.Model;
 
 [Flags]
-public enum CharacterStyle
+public enum AcdCharacterStyle
 {
     // TODO:
     AXS_VOICE_NONE,

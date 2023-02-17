@@ -1,6 +1,6 @@
 namespace ACDParser.Model;
 
-public class DefineInfo : Define
+public class AcdInfo : AcdBase
 {
     public string? Id { get; set; }
     public string? Name { get; set; }

@@ -4,8 +4,8 @@ namespace ACDParser.Model;
 
 public class Acd
 {
-    public DefineCharacter? Character { get; set; }
-    public DefineBalloon? Balloon { get; set; }
-    public List<DefineAnimation> Animations { get; set; } = new();
-    public List<DefineState> States { get; set; } = new();
+    public AcdCharacter? Character { get; set; }
+    public AcdBalloon? Balloon { get; set; }
+    public List<AcdAnimation> Animations { get; set; } = new();
+    public List<AcdState> States { get; set; } = new();
 }

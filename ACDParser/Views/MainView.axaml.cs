@@ -45,9 +45,9 @@ public partial class MainView : UserControl
             {
                 DefineContentControl.Content = treeViewItem.DataContext;
             }
-            else if (item is Define define)
+            else if (item is AcdBase acdBase)
             {
-                DefineContentControl.Content = define;
+                DefineContentControl.Content = acdBase;
             }
         }
         else

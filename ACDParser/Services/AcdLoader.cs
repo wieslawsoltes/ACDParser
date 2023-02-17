@@ -10,7 +10,7 @@ public class AcdLoader
     public static Acd? Load(string path)
     {
         using var stream = File.OpenRead(path);
-        var acd = AcdParser.ParseAcd(stream);
+        var acd = AcdParser.ParseStream(stream);
         if (acd is null)
         {
             return null;
@@ -29,16 +29,15 @@ public class AcdLoader
             {
                 // TODO:
                 // var colorTable = ImageConverter.ToBitmap(colorTableFileName);
-                //ImageLoader.ReadBmp(basePath, colorTableFileName);
+                // ImageLoader.ReadBmp(basePath, colorTableFileName);
             }
         }
 
-        //var totalAnimations = acd.Animations.Count;
-        //var totalFrames = acd.Animations.SelectMany(x => x.Frames).Count();
-        //var totalImages = acd.Animations.SelectMany(x => x.Frames).SelectMany(x => x.Images).Count();
-        //Console.WriteLine($"animations: {totalAnimations}, frames: {totalFrames}, images: {totalImages}");
+        // var totalAnimations = acd.Animations.Count;
+        // var totalFrames = acd.Animations.SelectMany(x => x.Frames).Count();
+        // var totalImages = acd.Animations.SelectMany(x => x.Frames).SelectMany(x => x.Images).Count();
+        // Console.WriteLine($"animations: {totalAnimations}, frames: {totalFrames}, images: {totalImages}");
 
         return acd;
-
     }
 }

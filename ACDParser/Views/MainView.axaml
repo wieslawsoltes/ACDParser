@@ -15,25 +15,25 @@
               Grid.Row="1"
               Grid.Column="0">
       <TreeView.DataTemplates>
-        <TreeDataTemplate x:DataType="model:DefineAnimation" ItemsSource="{Binding Frames}">
+        <TreeDataTemplate x:DataType="model:AcdAnimation" ItemsSource="{Binding Frames}">
           <TextBlock Text="{Binding Name}" />
         </TreeDataTemplate>
-        <TreeDataTemplate x:DataType="model:DefineFrame" ItemsSource="{Binding Images}">
+        <TreeDataTemplate x:DataType="model:AcdFrame" ItemsSource="{Binding Images}">
           <TextBlock Text="Frame" />
         </TreeDataTemplate>
-        <TreeDataTemplate x:DataType="model:DefineState" ItemsSource="{Binding Animations}">
+        <TreeDataTemplate x:DataType="model:AcdState" ItemsSource="{Binding Animations}">
           <TextBlock Text="{Binding Name}" />
         </TreeDataTemplate>
-        <DataTemplate x:DataType="model:DefineImage">
+        <DataTemplate x:DataType="model:AcdImage">
           <TextBlock Text="{Binding Filename}" />
         </DataTemplate>
-        <DataTemplate x:DataType="model:DefineCharacter">
+        <DataTemplate x:DataType="model:AcdCharacter">
           <TextBlock Text="Character" />
         </DataTemplate>
-        <DataTemplate x:DataType="model:DefineInfo">
+        <DataTemplate x:DataType="model:AcdInfo">
           <TextBlock Text="{Binding Name}" />
         </DataTemplate>
-        <DataTemplate x:DataType="model:DefineState">
+        <DataTemplate x:DataType="model:AcdState">
           <TextBlock Text="{Binding Name}" />
         </DataTemplate>
       </TreeView.DataTemplates>
@@ -53,15 +53,15 @@
                     Grid.Row="1" 
                     Grid.Column="2">
       <ContentControl.DataTemplates>
-        <DataTemplate x:DataType="model:DefineAnimation">
+        <DataTemplate x:DataType="model:AcdAnimation">
           <StackPanel HorizontalAlignment="Center"
                       VerticalAlignment="Center">
             <TextBlock Text="{Binding Name, FallbackValue={x:Null}, StringFormat={}Name: {0}}" />
-            <TextBlock Text="{Binding TransitionType, FallbackValue={x:Null}, StringFormat={}TransitionType: {0}}" />
+            <TextBlock Text="{Binding AcdTransitionType, FallbackValue={x:Null}, StringFormat={}TransitionType: {0}}" />
             <controls:Player Animation="{Binding}" />
           </StackPanel>
         </DataTemplate>
-        <DataTemplate x:DataType="model:DefineFrame">
+        <DataTemplate x:DataType="model:AcdFrame">
           <StackPanel HorizontalAlignment="Center"
                       VerticalAlignment="Center">
             <TextBlock Text="{Binding Images[0].Filename, FallbackValue={x:Null}, StringFormat={}Filename: {0}}" />
@@ -76,10 +76,10 @@
                              StretchDirection="Both"/>
           </StackPanel>
         </DataTemplate>
-        <DataTemplate x:DataType="model:DefineState">
+        <DataTemplate x:DataType="model:AcdState">
           <TextBlock Text="{Binding Name}" />
         </DataTemplate>
-        <DataTemplate x:DataType="model:DefineImage">
+        <DataTemplate x:DataType="model:AcdImage">
           <StackPanel HorizontalAlignment="Center"
                       VerticalAlignment="Center">
             <TextBlock Text="{Binding Filename}" />
@@ -88,13 +88,13 @@
                              StretchDirection="Both"/>
           </StackPanel>
         </DataTemplate>
-        <DataTemplate x:DataType="model:DefineCharacter">
+        <DataTemplate x:DataType="model:AcdCharacter">
           <TextBlock Text="Character" />
         </DataTemplate>
-        <DataTemplate x:DataType="model:DefineInfo">
+        <DataTemplate x:DataType="model:AcdInfo">
           <TextBlock Text="{Binding Name}" />
         </DataTemplate>
-        <DataTemplate x:DataType="model:DefineState">
+        <DataTemplate x:DataType="model:AcdState">
           <TextBlock Text="{Binding Name}" />
         </DataTemplate>
       </ContentControl.DataTemplates>

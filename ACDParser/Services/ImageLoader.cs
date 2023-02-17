@@ -75,7 +75,7 @@ public class ImageLoader
             }
         }
         
-        // TODO: Use rgb array to get DefineCharacter.Transparency color base on index.
+        // TODO: Use rgb array to get AcdCharacter.Transparency color base on index.
 
         // Read the pixel data
         // In case of color table those are numbers 0..255 (256 bytes total)
@@ -106,8 +106,8 @@ public class ImageLoader
         using var stream = File.Open(imagePath, FileMode.Open);
         var bitmap = SKBitmap.Decode(stream);
 
-        // TODO: DefineCharacter.Transparency
-        // TODO: DefineCharacter.ColorTable
+        // TODO: AcdCharacter.Transparency
+        // TODO: AcdCharacter.ColorTable
         var pixels = bitmap.Pixels;
         var transparent = SKColor.Parse("#FF00FF");
         for (var i = 0; i < pixels.Length; i++)

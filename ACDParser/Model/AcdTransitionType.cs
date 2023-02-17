@@ -1,6 +1,6 @@
 ﻿namespace ACDParser.Model;
 
-public enum TransitionType
+public enum AcdTransitionType
 {
     /// <summary>
     /// Use return animation

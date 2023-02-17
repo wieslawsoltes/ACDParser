@@ -1,6 +1,6 @@
 namespace ACDParser.Model;
 
-public class DefineBalloon : Define
+public class AcdBalloon : AcdBase
 {
     public int NumLines { get; set; }
     public int CharsPerLine { get; set; }

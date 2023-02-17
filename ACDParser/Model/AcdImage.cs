@@ -1,6 +1,6 @@
 namespace ACDParser.Model;
 
-public class DefineImage : Define
+public class AcdImage : AcdBase
 {
     public string? Filename { get; set; }
 }

@@ -1,6 +1,6 @@
 namespace ACDParser.Model;
 
-public class Branch : Define
+public class AcdBranch : AcdBase
 {
     public int BranchTo { get; set; }
     public int Probability { get; set; }
