@@ -140,6 +140,8 @@ public static class AcdParser
             }
         }
 
+        acd.Animations.Sort((x, y) => StringComparer.OrdinalIgnoreCase.Compare(x.Name, y.Name));
+
         return acd;
     }
 
